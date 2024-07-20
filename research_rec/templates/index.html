@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Paper Recommendation System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+        }
+        .navbar {
+    background-color: #343a40;
+    padding: 0.5rem 1rem;
+    height: 40px; /* Set the desired height */
+    display: flex;
+    align-items: center; /* Ensure the content is vertically centered */
+}
+
+.navbar-brand, .nav-link {
+    color: #ffffff !important;
+    transition: color 0.3s ease-in-out;
+}
+
+.navbar-brand:hover, .nav-link:hover {
+    color: #007bff !important;
+}
+
+/* Additional styling for better visuals */
+.navbar-brand {
+    font-weight: bold;
+    margin-right: 1rem; /* Add some spacing */
+}
+
+.nav-link {
+    padding: 0.5rem 0; /* Add some padding for better click area */
+    margin-right: 1rem; /* Add some spacing */
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        height: auto;
+    }
+    .navbar-brand, .nav-link {
+        margin-right: 0;
+        margin-bottom: 0.5rem; /* Adjusted margin for mobile view */
+    }
+}
+        .hero-section {
+            background-color: #f8f9fa;
+            padding: 60px 0;
+            text-align: center;
+            background-image: url('https://images.unsplash.com/photo-1494173853739-c21f58b16055');
+            background-size: cover;
+            background-position: center;
+            color: #ffffff;
+            position: relative;
+        }
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        .hero-section .container {
+            position: relative;
+            z-index: 1;
+        }
+        .hero-section h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        .hero-section p {
+            font-size: 1.2rem;
+            color: #dcdcdc;
+        }
+        .search-bar {
+            margin-top: 30px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .search-bar input {
+            width: 70%;
+            padding: 10px 20px;
+            border-radius: 50px 0 0 50px;
+            border: 2px solid #007bff;
+            outline: none;
+            transition: all 0.3s;
+        }
+        .search-bar input:focus {
+            border-color: #0056b3;
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+        }
+        .search-bar button {
+            background: #007bff;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 0 50px 50px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .search-bar button:hover {
+            background: #0056b3;
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+        }
+        .recommendation-section {
+            padding: 60px 0;
+            background-color: #ffffff;
+        }
+        .recommendation-section h2 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .card {
+            border: none;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .about-section {
+            padding: 60px 0;
+            background-color: #f8f9fa;
+        }
+        .about-section h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .footer {
+            background-color: #343a40;
+            color: #ffffff;
+            padding: 20px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <a class="navbar-brand" href="#">ResearchRec</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Recommendations</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="container">
+            <h1 class="display-4">Find Your Next Research Inspiration</h1>
+            <p class="lead">Explore the latest research papers recommended just for you</p>
+            <div class="search-bar">
+                <input type="text" name='query' class="form-control" placeholder="Search for research papers...">
+                <button type="button">Search</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recommendation Section -->
+    <section class="recommendation-section">
+        <div class="container">
+            <h2>Recommended Papers</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <img src="https://via.placeholder.com/350x250" class="card-img-top" alt="Paper 1">
+                        <div class="card-body">
+                            <h5 class="card-title">Paper 1</h5>
+                            <p class="card-text">Brief description of paper 1.</p>
+                            <a href="#" class="btn btn-primary">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <img src="https://via.placeholder.com/350x250" class="card-img-top" alt="Paper 2">
+                        <div class="card-body">
+                            <h5 class="card-title">Paper 2</h5>
+                            <p class="card-text">Brief description of paper 2.</p>
+                            <a href="#" class="btn btn-primary">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <img src="https://via.placeholder.com/350x250" class="card-img-top" alt="Paper 3">
+                        <div class="card-body">
+                            <h5 class="card-title">Paper 3</h5>
+                            <p class="card-text">Brief description of paper 3.</p>
+                            <a href="#" class="btn btn-primary">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="container">
+            <h2>About ResearchRec</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <p>ResearchRec is a platform designed to recommend research papers tailored to your interests. Our system uses advanced algorithms to analyze your reading habits and preferences to suggest papers that are relevant and insightful.</p>
+                </div>
+                <div class="col-md-6">
+                    <img src="https://via.placeholder.com/500x300" class="img-fluid" alt="About Us">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 ResearchRec. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
